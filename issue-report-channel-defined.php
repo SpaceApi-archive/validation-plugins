@@ -12,10 +12,16 @@ if(! function_exists("validate_issue_report_channel_defined"))
 
         $obj = $space_api_file->json();
 
+        // merge both arrays to get all the versions, prior checks might
+        // have moved versions from valid to invalid and thus we would not
+        // check versions that already have been marked invalid but we need
+        // to check those too to assign these versions the error messages
+        $versions = array_merge($valid_versions, $invalid_versions);
+
         // the issue-report-channels field got introduced in v0.13. we define a new array for this while
         // remove the prefix '0.' so that we can define a ordinal order because 0.8 is less than 0.13
         // in the specs but mathematically 0.8 greater than 0.13.
-        $versions_of_interest = preg_replace("/0./", "", $valid_versions);
+        $versions_of_interest = preg_replace("/0./", "", $versions);
 
         // remove versions prior 13
         foreach($versions_of_interest as $index => $version)
