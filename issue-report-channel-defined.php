@@ -28,17 +28,14 @@ if(! function_exists("validate_issue_report_channel_defined"))
             if($version < 13)
                 array_splice($versions_of_interest, $index, 1);
 
-        // we need this variable because we cannot use $obj->issue-report-channels directly
-        $issue_report_channels = "issue-report-channels";
-
         // iterate over all the versions where this check makes sense
         foreach($versions_of_interest as $version)
         {
             $extended_version = "0.$version";
 
-            if(property_exists($obj, "issue-report-channels"))
+            if(property_exists($obj, "issue_report_channels"))
             {
-                foreach($obj->$issue_report_channels as $index => $channel)
+                foreach($obj->issue_report_channels as $index => $channel)
                 {
                     if(! (property_exists($obj, "contact") && property_exists($obj->contact, $channel)) )
                     {
