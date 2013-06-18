@@ -16,12 +16,10 @@ if(! function_exists("email_instead_of_mail_in_contact"))
         // to check those too to assign these versions the error messages
         $versions = array_merge($valid_versions, $invalid_versions);
 
-        $versions_of_interest = preg_replace("/0./", "", $versions);
-
-        // remove versions prior 9
-        foreach($versions_of_interest as $index => $version)
-            if($version < 9)
-                array_splice($versions_of_interest, $index, 1);
+        $versions_of_interest = array();
+        foreach(preg_replace("/0./", "", $versions) as $version)
+            if($version >= 9)
+                $versions_of_interest[] = $version;
 
 
         // iterate over all the versions where this check makes sense

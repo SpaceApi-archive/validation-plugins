@@ -18,15 +18,13 @@ if(! function_exists("validate_issue_report_channel_defined"))
         // to check those too to assign these versions the error messages
         $versions = array_merge($valid_versions, $invalid_versions);
 
-        // the issue_report_channels field got introduced in v0.13. we define a new array for this while
-        // remove the prefix '0.' so that we can define a ordinal order because 0.8 is less than 0.13
-        // in the specs but mathematically 0.8 greater than 0.13.
-        $versions_of_interest = preg_replace("/0./", "", $versions);
-
-        // remove versions prior 13
-        foreach($versions_of_interest as $index => $version)
-            if($version < 13)
-                array_splice($versions_of_interest, $index, 1);
+        // the issue_report_channels field got introduced in v0.13. we define a new array for this while removing the
+        // prefix '0.' in the loop header so that we can define a ordinal order because 0.8 is less than 0.13 in the
+        // specs but mathematically 0.8 greater than 0.13.
+        $versions_of_interest = array();
+        foreach(preg_replace("/0./", "", $versions) as $version)
+            if($version >= 13)
+                $versions_of_interest[] = $version;
 
         // iterate over all the versions where this check makes sense
         foreach($versions_of_interest as $version)
