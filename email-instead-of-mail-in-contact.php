@@ -21,7 +21,6 @@ if(! function_exists("email_instead_of_mail_in_contact"))
             if($version >= 9)
                 $versions_of_interest[] = $version;
 
-
         // iterate over all the versions where this check makes sense
         foreach($versions_of_interest as $version)
         {
